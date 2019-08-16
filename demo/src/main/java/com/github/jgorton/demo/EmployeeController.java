@@ -32,12 +32,6 @@ class EmployeeController {
 
   // Aggregate root
 
-  // // no links with this version of the method
-  // @GetMapping("/employees")
-  // List<Employee> all() {
-  //   return repository.findAll();
-  // }
-
   @GetMapping("/employees")
   Resources<Resource<Employee>> all() {
 
@@ -57,19 +51,8 @@ class EmployeeController {
       .created(new URI(resource.getId().expand().getHref()))
       .body(resource);
   }
-  // Employee newEmployee(@RequestBody Employee newEmployee) {
-  //   return repository.save(newEmployee);
-  // }
 
   // Single item
-
-  // // no linking with this one
-  // @GetMapping("/employees/{id}")
-  // Employee one(@PathVariable Long id) {
-
-  //   return repository.findById(id)
-  //     .orElseThrow(() -> new EmployeeNotFoundException(id));
-  // }
 
   @GetMapping("/employees/{id}")
   Resource<Employee> one(@PathVariable Long id) {
@@ -81,9 +64,8 @@ class EmployeeController {
 }
 
   @PutMapping("/employees/{id}")
-  Employee replaceEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
-
-    return repository.findById(id)
+  ResponseEntity<?> replaceEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) throws URISyntaxException {
+    Employee updatedEmployee = repository.findById(id)
       .map(employee -> {
         employee.setName(newEmployee.getName());
         employee.setRole(newEmployee.getRole());
@@ -93,6 +75,16 @@ class EmployeeController {
         newEmployee.setId(id);
         return repository.save(newEmployee);
       });
+    
+    // the Employee object built from save() is wrapped using the
+    // EmployeeResourceAssembler into a Resource<Employee> object
+    Resource<Employee> resource = assembler.toResource(updatedEmployee);
+
+    // to get a more detailed response code than 200 OK, use Spring MVC's
+    // ResponseEntity wrapper, it has created() where we can plug in the resource's URI
+    return ResponseEntity
+      .created(new URI(resource.getId().expand().getHref()))
+      .body(resource);
   }
 
   @DeleteMapping("/employees/{id}")
