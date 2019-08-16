@@ -1,3 +1,12 @@
 following the tutorial on Java Spring from https://spring.io/guides/tutorials/rest/
 to test, run PayrollApplication.java (F5 in VScode), then visit localhost:8080/employees
 additional tutorial to try: https://spring.io/projects/spring-boot
+
+to checkout a previous git commit: git checkout <commit hash>
+   puts you in a 'detached HEAD' state
+   can make changes and commit them, then discard any commits by doing another checkout
+       won't be able to checkout another branch without committing current changes first
+       if you checkout without retaining your commits on another branch, it will be
+       difficult to retrieve this commit later (possible? i think alex and stephen think it is)
+   to retain those commits, create a new branch: git checkout -b <new-branch-name>
+       if you've already committed, keep it w new branch: git branch <new-branch-name> <commit-hash>
