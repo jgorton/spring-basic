@@ -17,4 +17,13 @@ class LoadDatabase {
       log.info("Preloading " + repository.save(new Employee("Frodo Baggins", "thief")));
     };
   }
+
+  // where do i put this?
+  orderRepository.save(new Order("MacBook Pro", Status.COMPLETED));
+  orderRepository.save(new Order("iPhone", Status.IN_PROGRESS));
+
+  orderRepository.findAll().forEach(order -> {
+    log.info("Preloaded " + order);
+  });
+  // end of stuff i don't know where to put?
 }
