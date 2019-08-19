@@ -1,6 +1,8 @@
 following the tutorial on Java Spring from https://spring.io/guides/tutorials/rest/
 to test, run PayrollApplication.java (F5 in VScode), then visit localhost:8080/employees
-additional tutorial to try: https://spring.io/projects/spring-boot
+additional tutorials to try:
+  https://spring.io/projects/spring-boot
+  https://github.com/spring-projects/spring-hateoas-examples
 
 to checkout a previous git commit: git checkout <commit hash>
    puts you in a 'detached HEAD' state
